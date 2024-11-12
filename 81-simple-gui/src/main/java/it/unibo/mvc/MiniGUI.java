@@ -82,6 +82,7 @@ public class MiniGUI {
      */
     public static void main(final String... args) {
         new MiniGUI().display();
+        System.out.println();
     }
 
 }
