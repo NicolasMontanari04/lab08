@@ -1,8 +1,12 @@
 package it.unibo.mvc;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -29,9 +33,20 @@ public class MiniGUI {
     public MiniGUI() {
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
+        
+        final JPanel panel = new JPanel();
+
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         final JButton write = new JButton("Print a random number on standard output");
-        canvas.add(write, BorderLayout.CENTER);
+
+        canvas.add(panel, BorderLayout.CENTER);
+        panel.add(write, BorderLayout.CENTER);
+
+        final JTextField text1 = new JTextField("result");
+        canvas.add(text1, BorderLayout.NORTH);
+
         frame.setContentPane(canvas);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
          * Handlers
@@ -39,7 +54,9 @@ public class MiniGUI {
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(randomGenerator.nextInt());
+                String num = String.valueOf(randomGenerator.nextInt());
+                System.out.println(num);
+                text1.setText(String.valueOf(num));
             }
         });
     }
@@ -54,6 +71,9 @@ public class MiniGUI {
          * specify the size of a window in pixel: it takes into account the
          * current resolution.
          */
+
+        
+
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
@@ -82,7 +102,6 @@ public class MiniGUI {
      */
     public static void main(final String... args) {
         new MiniGUI().display();
-        System.out.println();
     }
 
 }
